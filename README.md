@@ -9,5 +9,5 @@ naiveHA is meant to make use of cheap hardware (Raspberry Pi Zero 2W, Raspberry 
 ![typical naiveHA setup](https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Wired-Button/IMG_20230319_191916_341.jpg)
 
 # Proof of concept
-A proof of concept based on the above setup is found in `Proof-Of-Concept/Wired-Button` folder
+A proof of concept based on the above setup is found in `Proof-Of-Concept/Wired-Button` folder.
 Other proof of concepts will follow
