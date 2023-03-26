@@ -2,7 +2,7 @@
 This proof of concept intends to demonstrate the communication protocol between the coordinator and nodes via SSL sockets
 
 # The setup
-The system needs a coordinator who will engage various nodes in performing various actions. The coordintor is a Raspberry Pi Zero 2 W running 32-bit Raspberian OS. Instructions to setup the coordinator are found in `coordinator` folder.
+The system needs a coordinator who will engage various nodes in performing various actions. The coordinator is a Raspberry Pi Zero 2 W running 32-bit Raspberian OS. Instructions to setup the coordinator are found in `coordinator` folder.
 
 The nodes are Raspberry Pi Pico W. The MicroPython implementation for Pico W is under constant development. Although the latest version of firmware assumes better capabilities, it cannot be guaranteed that the rolling updates will not introduce change that break the code demonstrated here. Thus, the code demonstrated here was successfully tested with the firmware `rp2-pico-w-20230323-unstable-v1.19.1-992-g38e7b842c.uf2` available in the folder `node`
 To demonstrate the proof of concept, a power plug will be turned ON/OFF. The power plug is commercially available and is intended to be operated remotely via a 433MHz remote control. This remote control will be substituted by a 433MHz transmitter module wired to the node. Instructions on how to sniff the RF signal transmitted by the remote control are found in the folder `node/RF`
