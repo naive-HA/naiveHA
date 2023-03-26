@@ -6,7 +6,7 @@ A major effort in the space of home automation is Home Assistant: FOSS and backe
 
 # Introducing naiveHA
 naiveHA is meant to make use of cheap hardware (Raspberry Pi Zero 2W, Raspberry Pi Pico W and cheapest breakout modules). It is written in Python 3 and it is easy to extend. This is a typical setup:
-<img src="[https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Wired-Button/IMG_20230319_191916_341.jpg](https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Wired-Button/IMG_20230319_191916_341.jpg)"  width="922" height="1124">
+![typical naiveHA setup](https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Wired-Button/IMG_20230319_191916_341.jpg)
 
 # Proof of concept
 A proof of concept based on the above setup is found in `Proof-Of-Concept/Wired-Button` folder.
