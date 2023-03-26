@@ -10,9 +10,9 @@ class RF433():
         self.remote = {"A": {"on"  : "8e888e8e8e8888ee88888e8888e8888e88",
                              "off" : "8e888e8e8e8888ee8888e88888e8eee888",
                              "name": "power socket"}}
-        factor = 0.8227
-        self.short_pulse = int(282*factor) #original: 282 length in microseconds of 1 bit  of 1
-        self.long_pulse = int(876*factor)  #original: 876 length in microseconds of 3 bits of 0
+        factor = 0.8227 #scale down to account for the computations in between state changes below
+        self.short_pulse = int(285*factor) #original: 285 length in microseconds of 1 bit  of 1
+        self.long_pulse = int(865*factor)  #original: 865 length in microseconds of 3 bits of 0
         self.extended_pulse = int(10.27*1000) #10.27 miliseconds
         
         self.state = 0 #off
