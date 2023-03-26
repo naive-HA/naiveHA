@@ -15,6 +15,6 @@ Upon system boot, the coordinator will automatically seek to join the wifi netwo
 
 Upon powering up, the node will seek to join the wifi network and the on board LED will blink fast. Once the network connection is established the node will seek to connect to the coordinator and the LED will blink slowly. When the node successfully connects to the coordinator, the LED will turn off.
 
-Events are triggered via the wired button fitted to the coordinator. Pressing the button the LED turns green and a signal is sent to the node to toggle the sate of the remote power plug. A video demonstration is available on youtube:
+Events are triggered via the wired button fitted to the coordinator. Pressing the button the LED turns green and a signal is sent to the node to toggle the state of the remote power plug. A video demonstration is available on youtube:
 [![demonstration of concept](https://img.youtube.com/vi/lHx3oAHH-9Y/0.jpg)](https://www.youtube.com/watch?v=lHx3oAHH-9Y)
 
