@@ -1,0 +1,29 @@
+#temp_sensor1 {
+padding: 20px;
+background-color: #141414;
+margin-bottom: 10px;
+border-radius: 10px;
+}
+#temp_sensor2{
+text-align: right;
+font-size: 80%;
+font-style: italic;
+}
+#temp_sensor3{
+text-align: center;
+font-size: 4.5em;
+font-weight: 700;
+}
+#temp_sensor_info{
+font-size: 2.5em;
+padding-left: 50px;
+}
+@media screen and (min-width: 1024px){
+#temp_sensor_info{
+    font-size: 1.5em;
+    padding-left: 20px;
+}
+#temp_sensor3{
+    font-size: 1.7em;
+}
+}

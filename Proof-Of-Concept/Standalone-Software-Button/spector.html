@@ -1,0 +1,54 @@
+<div class="naiveHA_container">
+<div class="naiveHA_inner_container">
+<p class="naiveHA_label">Power</p>
+<div class="s_options" style="width: 50% !important;">
+<ul class="s_carousel hs full no-scrollbar">
+<<SPECTOR_POWER_OPTIONS>>
+<li class="item" id="S_P_<<SPECTOR_POWER_OPTION>>">
+<div class="s_option" onclick="spector_p('<<SPECTOR_POWER_OPTION>>')"><<SPECTOR_POWER_OPTION>>
+</div>
+</li>
+<</SPECTOR_POWER_OPTIONS>>
+</ul>
+</div>
+</div>
+<div class="naiveHA_inner_container">
+<p class="naiveHA_label">Heat level</p>
+<div class="s_options">
+<ul class="s_carousel hs full no-scrollbar">
+<<SPECTOR_HEAT_LEVEL_OPTIONS>>
+<li class="item" id="S_H_<<SPECTOR_HEAT_LEVEL_OPTION>>">
+<div class="s_option" onclick="spector_h('<<SPECTOR_HEAT_LEVEL_OPTION>>')"><<_SPECTOR_HEAT_LEVEL_OPTION>>
+</div>
+</li>
+<</SPECTOR_HEAT_LEVEL_OPTIONS>>
+</ul>
+</div>
+</div>
+<div class="naiveHA_inner_container">
+<p class="naiveHA_label">Fan</p>
+<div class="s_options" style="width: 50% !important;">
+<ul class="s_carousel hs full no-scrollbar">
+<<SPECTOR_FAN_OPTIONS>>
+<li class="item" id="S_F_<<SPECTOR_FAN_OPTION>>">
+<div class="s_option" onclick="spector_f('<<SPECTOR_FAN_OPTION>>')"><<SPECTOR_FAN_OPTION>>
+</div>
+</li>
+<</SPECTOR_FAN_OPTIONS>>
+</ul>
+</div>
+</div>
+<div class="naiveHA_inner_container">
+<p class="naiveHA_label">Temperature target</p>
+<div class="s_options">
+<ul class="s_carousel hs full" id="S_T_CAROUSEL">
+<<SPECTOR_TEMP_OPTIONS>>
+<li class="item" id="S_T_<<SPECTOR_TEMP_OPTION>>">
+<div class="s_option" onclick="spector_t('<<SPECTOR_TEMP_OPTION>>')"><<SPECTOR_TEMP_OPTION>>
+</div>
+</li>
+<</SPECTOR_TEMP_OPTIONS>>
+</ul>
+</div>
+</div>
+</div>

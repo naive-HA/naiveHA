@@ -1,0 +1,52 @@
+body {
+background: black;
+color: white
+}
+#div1 {
+width: 100%;
+margin: auto;
+}
+#div2 {
+text-align: center;
+padding: 20px;
+background-color: #141414;
+margin-bottom: 10px;
+border-radius: 10px;
+}
+#h11 {
+margin: auto;
+width: 99%;
+font-size: 3em;
+}
+.naiveHA_container{
+padding: 20px;
+background-color: #141414;
+margin-bottom: 10px;
+border-radius: 10px;
+padding-bottom: 1px;
+padding-top: 1px;
+}
+.naiveHA_inner_container{
+margin: 10px;
+border-radius: 10px;
+border: 1px solid black;
+margin-bottom: 10px;
+padding-bottom: 60px;
+}
+.naiveHA_label{
+font-size: 2.5em;
+padding-left: 50px;
+}
+@media screen and (min-width: 1024px){
+#div1 {
+width: 600px;
+margin: auto;
+}
+#h11 {
+font-size: 1.5em;
+}
+.naiveHA_label{
+font-size: 1.5em;
+padding-left: 20px;
+}
+}
