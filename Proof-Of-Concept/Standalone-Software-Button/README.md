@@ -10,10 +10,11 @@ The RF signals are sent by a cheap breakout module:
 ![RF module](https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Standalone-Software-Button/IMG_20230409_173019_605.jpg)
 
 The graphical interface is straightforward: it features an ON/OFF button
+
 ![graphical interface](https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Standalone-Software-Button/Screenshot_20230409-170044.png)
 
 The workflow is demonstrated in the below video. In this video, controlling the power outlet achieves the control of a bed side lamp. But other use cases could be imagined: like the control of ceiling lights, a ceiling fan, a cheap heater, etc. The only limits are your imagination.
-
+The workflow is demonstrated in the below video
 [![demonstration of concept](https://img.youtube.com/vi/iH8CAHKDYGw/0.jpg)](https://www.youtube.com/watch?v=iH8CAHKDYGw)
 
 # Controlling a heater panel
@@ -26,4 +27,5 @@ In the current case, the graphical interface is a tad more complex and features 
 
 ![graphical interface](https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Standalone-Software-Button/Screenshot_20230409-170058.png)
 
+The workflow is demonstrated in the below video
 [![demonstration of concept](https://img.youtube.com/vi/w7Tisz9hLJI/0.jpg)](https://www.youtube.com/watch?v=w7Tisz9hLJI)
