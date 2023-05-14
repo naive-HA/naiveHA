@@ -31,3 +31,11 @@ In the current case, the graphical interface is a tad more complex and features 
 The workflow is demonstrated in the below video
 
 [![demonstration of concept](https://img.youtube.com/vi/w7Tisz9hLJI/0.jpg)](https://www.youtube.com/watch?v=w7Tisz9hLJI)
+
+# Advance control
+Combining sensors and transmitters opens up endless possibilities, like controlling household appliances. temp_control.py demonstrates room temperature control by combining an AHT20 temperature sensor and an IR transmitter to control a heater panel. 
+
+![graphical interface](http://https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Standalone-Software-Button/Screenshot_20230514-170845.png)
+
+![setting control parameters](http://https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Standalone-Software-Button/Screenshot_20230514-170856.png)
+
