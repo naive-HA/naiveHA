@@ -35,7 +35,7 @@ The workflow is demonstrated in the below video
 # Advance control
 Combining sensors and transmitters opens up endless possibilities, like controlling household appliances. temp_control.py demonstrates room temperature control by combining an AHT20 temperature sensor and an IR transmitter to control a heater panel. 
 
-![graphical interface](http://https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Standalone-Software-Button/Screenshot_20230514-170845.png)
+![graphical interface](https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Standalone-Software-Button/Screenshot_20230514-170845.png)
 
-![setting control parameters](http://https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Standalone-Software-Button/Screenshot_20230514-170856.png)
+![setting control parameters](https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Standalone-Software-Button/Screenshot_20230514-170856.png)
 
