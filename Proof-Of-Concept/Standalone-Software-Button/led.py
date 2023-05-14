@@ -1,3 +1,4 @@
+import time
 from const import _LED_MODES
 from machine import Pin, Timer
 
@@ -10,6 +11,8 @@ class LED():
         
     def stop(self) -> None:
         self.timer.deinit()
+        self.led.on()
+        time.sleep_ms(100)
         self.led.off()
         return None
     

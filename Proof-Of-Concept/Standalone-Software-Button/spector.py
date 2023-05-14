@@ -2,52 +2,31 @@ import json
 import math
 import time
 from ir import IR
+import uasyncio as asyncio
 from custom_extensible_class import CUSTOM_EXTENSIBLE_CLASS
 
 class SPECTOR(IR):
     def __init__(self, endpoint_id):
         CUSTOM_EXTENSIBLE_CLASS.__init__(self, endpoint_id)                
         IR.__init__(self)
+        self.run = True
         self.description = "Infrared remote control for heat panel Spector"
         with open("IR_signals", 'r') as raw_signals:
             self.signals = json.loads(raw_signals.read())
         self.attributes = {"Power"    : ["Off", "On"], \
                            "HeatLevel": [1, 2, 3, 4], \
-                           "Fan"      : ["Off", "Temporary_Off", "On"], \
+                           "Fan"      : ["Off", "On"], \
                            "Temp"     : [x for x in range(5, 38)]}
         self.state = {"Power"    : "Off", \
                       "HeatLevel": 4, \
                       "Fan"      : "Off", \
                       "Temp"     : 5}
-        
-    def _validate(self, attributes: dict[str, str] | list[str]) -> bool:
-        if len(list(attributes)) in [0]:
-            return True
-        elif len(list(attributes)) in [4]:
-            pass
-        else:
-            raise Exception("Incorrect number of attributes")
-        
-        for attribute in list(attributes):
-            found_it = False
-            for _attribute in list(self.attributes):
-                if _attribute == attribute:
-                    found_it = True
-                    break
-            if not found_it:
-                raise Exception("Attribute does not exist")
-        
-        if isinstance(attributes, dict):
-            for attribute in list(attributes):
-                if attributes[attribute] not in self.attributes[attribute]:
-                    raise Exception("Incorrect attribute value")                
-        return True
 
     def get_description(self) -> str:
         return self.description
     
-    def get_html(self, file_type) -> str:
-        if "html" in file_type:
+    def get_html(self, file_type: str) -> str:
+        if ".html" in file_type:
             with open('spector.html', 'r') as html_file:
                 html = html_file.read()
             start = html.find("<<SPECTOR_POWER_OPTIONS>>")
@@ -110,47 +89,46 @@ class SPECTOR(IR):
     def get_attributes(self) -> dict[str, list[str | float]]:
         return self.attributes
     
-    def set_value(self, attributes: dict[str, str | float]) -> bool | None:
-        attributes["Temp"] = int(attributes["Temp"])
-        attributes["HeatLevel"] = int(attributes["HeatLevel"])
-        self._validate(attributes)
-
-        if self.state["Power"] == "Off" and attributes["Power"] == "Off":
-            return self.get_value(list(self.state))
-        if self.state["Power"] == "On" and attributes["Power"] == "Off":
+    def set_value(self, values: dict[str, str]) -> bool | None:
+        values["Temp"] = int(values["Temp"])
+        values["HeatLevel"] = int(values["HeatLevel"])
+        if self.state["Power"] == "Off" and values["Power"] == "Off":
+            return self.get_value([])
+        if self.state["Power"] == "On" and values["Power"] == "Off":
             self.broadcast(self.signals["Power"]["Off"])
-            self.state = {"Power"    : "Off", \
-                          "HeatLevel": 4, \
-                          "Fan"      : "Off", \
-                          "Temp"     : 5}
-            return self.get_value(list(self.state))
-        if self.state["Power"] != attributes["Power"]:
-            self.state["Power"] = attributes["Power"]
-            self.broadcast(self.signals["Power"][attributes["Power"]])
-
-        heatLevel = attributes["HeatLevel"] + 4 - self.state["HeatLevel"]
+            self.state["Power"] = self.attributes["Power"][0]
+            self.state["HeatLevel"] = self.attributes["HeatLevel"][3]
+            self.state["Fan"] = self.attributes["Fan"][0]
+            self.state["Temp"] = self.attributes["Temp"][0]
+            return self.get_value([])
+        if self.state["Power"] != values["Power"]:
+            self.state["Power"] = values["Power"]
+            self.broadcast(self.signals["Power"][values["Power"]])
+        heatLevel = values["HeatLevel"] + 4 - self.state["HeatLevel"]
         heatLevel += -4 * math.floor(heatLevel/4)
         for i in range(0, heatLevel):
             self.broadcast(self.signals["HeatLevel"]["Up"])
-        if self.state["Fan"] == "On" and self.state["HeatLevel"] > attributes["HeatLevel"]:
+        if self.state["Fan"] == "On" and self.state["HeatLevel"] > values["HeatLevel"]:
                 self.broadcast(self.signals["Fan"]["On"])
-        self.state["HeatLevel"] = attributes["HeatLevel"]
-
-        if self.state["Fan"] != attributes["Fan"]:
-            self.broadcast(self.signals["Fan"][attributes["Fan"]])
-            self.state["Fan"] = attributes["Fan"]
-
-        TempUpOrDown = "Up" if self.state["Temp"] < attributes["Temp"] else "Down"
-        for i in range(0, abs(self.state["Temp"] - attributes["Temp"])):
+        self.state["HeatLevel"] = values["HeatLevel"]
+        if self.state["Fan"] != values["Fan"]:
+            self.broadcast(self.signals["Fan"][values["Fan"]])
+            self.state["Fan"] = values["Fan"]
+        TempUpOrDown = "Up" if self.state["Temp"] < values["Temp"] else "Down"
+        for i in range(0, abs(self.state["Temp"] - values["Temp"])):
             self.broadcast(self.signals["Temp"][TempUpOrDown])
-        self.state["Temp"] = attributes["Temp"]
-        
+        self.state["Temp"] = values["Temp"]
         return self.get_value([])
     
-    def get_value(self, attributes: list[str]) -> dict[str, str | float] | None:
-        self._validate(attributes)
+    def get_value(self, values: list[str]) -> dict[str, str | float] | None:
         return self.state
     
+    def stop(self):
+        self.run = False
+    
+    async def infinite_loop(self):
+        return
+
 if __name__ == "__main__":
     signals = {"Power":
                 {"Off"  : [9003, 3933, 547, 1638, 547, 547, 547, 547, 547, 547, 547, 547, 547, \

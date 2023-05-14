@@ -1,0 +1,46 @@
+body {
+    background: black;
+    color: white
+}
+.naiveHA_header {
+    width: 100%;
+    margin: auto;
+}
+.naiveHA_subheader {
+    text-align: center;
+    font-size: 3em;
+    padding: 20px;
+    background-color: #141414;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.naiveHA_container {
+    padding: 20px;
+    background-color: #141414;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.naiveHA_inner_container {
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    padding-bottom: 60px;
+}
+.naiveHA_label {
+    font-size: 2.5em;
+    padding-left: 50px;
+}
+@media screen and (min-width: 1024px) {
+    .naiveHA_header {
+        width: 600px;
+        margin: auto;
+    }
+    .naiveHA_subheader {
+        font-size: 1.5em;
+    }
+    .naiveHA_label {
+        font-size: 1.5em;
+        padding-left: 20px;
+    }
+}

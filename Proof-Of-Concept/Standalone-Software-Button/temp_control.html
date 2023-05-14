@@ -1,0 +1,83 @@
+        <div class="naiveHA_container">
+            <div class="naiveHA_inner_container" id="info_panel" style="padding-bottom: 30px;">
+                <div class="naiveHA_temp_control_info_panel_wrapper">
+                    <div class="naiveHA_temp_control_info_panel_label" onclick="naiveHA_temp_control_status_refresh()">
+                        <p>Room Temperature</p>
+                    </div>
+                    <div class="naiveHA_temp_control_info_panel_label" onclick="naiveHA_temp_control_show_target_panel()">
+                        <p>Target</p>
+                    </div>
+                    <div class="naiveHA_temp_control_info_panel_value" onclick="naiveHA_temp_control_status_refresh()">
+                        <p id="naiveHA_temp_control_room_temp"><<ROOM_TEMPERATURE>></p>
+                    </div>
+                    <div class="naiveHA_temp_control_info_panel_value" onclick="naiveHA_temp_control_show_target_panel()">
+                        <p id="naiveHA_temp_control_target_temp"><<TARGET_TEMPERATURE>></p>
+                    </div>
+                    <div class="naiveHA_temp_control_info_panel_label" onclick="naiveHA_temp_control_set_fan_control()">
+                        <p>Fan</p>
+                    </div>
+                    <div class="naiveHA_temp_control_info_panel_label" onclick="naiveHA_temp_control_status_refresh()">
+                        <p>Heater</p>
+                    </div>
+                    <div class="naiveHA_temp_control_info_panel_value" id="naiveHA_temp_control_fan_status" onclick="naiveHA_temp_control_set_fan_control()">
+                        <p id="naiveHA_temp_control_fan_status"><<FAN_STATUS>></p>
+                    </div>
+                    <div class="naiveHA_temp_control_info_panel_value" onclick="naiveHA_temp_control_status_refresh()">
+                        <p id="naiveHA_temp_control_heater_status"><<HEATER_STATUS>></p>
+                    </div>
+                </div>
+                <div class="naiveHA_temp_control_refresh_label" onclick="naiveHA_temp_control_status_refresh()">
+                    <p id="naiveHA_temp_control_last_refresh">Last refresh: just now; Tap to refresh again</p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <p class="naiveHA_temp_control_switch">
+                        <input type="radio" id="naiveHA_temp_control_switch_deactivate" name="switch" class="naiveHA_temp_control_switch__radio naiveHA_temp_control_switch__radio_yes">
+                        <input type="radio" checked="" id="naiveHA_temp_control_switch_activate" name="switch" class="naiveHA_temp_control_switch__radio naiveHA_temp_control_switch__radio_no">
+                        <label for="naiveHA_temp_control_switch_deactivate" class="naiveHA_temp_control_switch__label naiveHA_temp_control_switch__label_yes">
+                            <span class="naiveHA_temp_control_switch__txt">Deactivate</span>
+                        </label>
+                        <label for="naiveHA_temp_control_switch_activate" class="naiveHA_temp_control_switch__label naiveHA_temp_control_switch__radio_no">
+                            <span class="naiveHA_temp_control_switch__txt">Activate</span>
+                        </label>
+                    </p>
+                </div>
+            </div>
+            <div class="naiveHA_inner_container naiveHA_temp_control_target_panel" id="target_panel">
+                <div class="naiveHA_temp_control_info_panel">
+                    <div class="naiveHA_temp_control_info_panel_label" style="width:100%">
+                        <p>Target Temperature</p>
+                    </div>
+                </div>
+                <div class="naiveHA_temp_control_target_select_options">
+                    <ul class="naiveHA_temp_control_select_carousel naiveHA_temp_control_select_carousel_strip naiveHA_temp_control_select_carousel_full">
+<<TEMPERATURE_TARGET_OPTIONS>>
+                        <li class="naiveHA_temp_control_select_carousel_item" id="naiveHA_temp_control_temperature_target_option_<<TEMPERATURE_TARGET_OPTION>>">
+                            <div onclick="naiveHA_temp_control_set_temperature_target('<<TEMPERATURE_TARGET_OPTION>>')"><<TEMPERATURE_TARGET_OPTION>>
+                            </div>
+                        </li>
+<</TEMPERATURE_TARGET_OPTIONS>>
+                    </ul>
+                </div>
+                <div class="naiveHA_temp_control_info_panel">
+                    <div class="naiveHA_temp_control_info_panel_label naiveHA_temp_control_band">
+                        <p>Control Band (+/-)</p>
+                    </div>
+                </div>
+                <div class="naiveHA_temp_control_target_select_options">
+                    <ul class="naiveHA_temp_control_select_carousel naiveHA_temp_control_select_carousel_strip naiveHA_temp_control_select_carousel_full naiveHA_temp_control_select_carousel_no_scrollbar">
+<<CONTROL_BAND_OPTIONS>>
+                        <li class="naiveHA_temp_control_select_carousel_item" id="naiveHA_temp_control_band_<<2xCONTROL_BAND_OPTION>>" style="margin-left: 66%;">
+                            <div onclick="naiveHA_temp_control_set_control_band('<<CONTROL_BAND_OPTION>>')"><<CONTROL_BAND_OPTION>>
+                            </div>
+                        </li>
+<</CONTROL_BAND_OPTIONS>>
+                    </ul>
+                </div>
+                <div>
+                    <div class="naiveHA_temp_control_back" onclick="naiveHA_temp_control_show_info_panel()">
+                        <p>Back</p>
+                    </div>
+                </div>
+            </div>
+        </div>

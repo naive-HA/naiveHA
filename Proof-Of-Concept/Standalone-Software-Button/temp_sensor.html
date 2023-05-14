@@ -1,12 +1,8 @@
 <div class="naiveHA_container">
-<div class="naiveHA_inner_container" id="temp_sensor1" onclick="refresh_temp_sensor()">
-<p class="naiveHA_label">Room temperature</p>
-<div id="temp_sensor3">
-<p id="temp_sensor_info1"><<TEMP>>&deg;C</p>
+    <div class="naiveHA_inner_container" onclick="naiveHA_temp_sensor_refresh()" style="padding-bottom: 10px;">
+        <p class="naiveHA_label">Room temperature</p>
+            <p id="naiveHA_temp_sensor_info"><<TEMP>>&deg;C</p>
+            <p id="naiveHA_temp_sensor_last_refresh">Last refresh: just now; Tap to refresh again</p>
+        </div>
+    </div>
 </div>
-<div id="temp_sensor2">
-<p id="temp_sensor_last_refresh">Last refresh: just now; Tap to refresh again</p>
-</div>
-</div>
-</div>
-

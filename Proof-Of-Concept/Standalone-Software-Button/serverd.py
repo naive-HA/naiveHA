@@ -1,94 +1,70 @@
 import json
-import time
 import socket
-import network
-from const import _LED_MODES
-
-LED_MODES = _LED_MODES()
+import uasyncio as asyncio
 
 class SERVERD():
     PORT = 80
-    WAIT_TIME = 1
-    LONG_WAIT_TIME = 5
-    VERY_LONG_WAIT_TIME = 10
+    TIMEOUT = 20
 
     def __init__(self):
-        self.run : bool = False
+        self.run : bool = True
         self._ssl_connection :  socket.socket | None = None
         self.handle_message : "Callable[[str]]" | None = None
-        self.set_led_mode : "Callable[[LED_MODES]]" | None = None
         
-    def start(self) -> bool:
-        self.run = True
-        assert self.set_led_mode is not None
-        assert self.handle_message is not None
-        
-        self.wlan = network.WLAN(network.STA_IF)
-        self.wlan.active(True)
-        self.wlan.config(pm = 0x111022)
-        #0x111022 - performance mode
-        #0xa11140 - remove power saving mode
-        #0xa11142 - default
-        self.set_led_mode(LED_MODES.NETWORK_DISCONNECTED)
-        self._connect_wifi()
-        self.set_led_mode(LED_MODES.NETWORK_CONNECTED)
+    async def start(self) -> bool:
+        self.server = await asyncio.start_server(self.manage_request, '0.0.0.0', SERVERD.PORT, 100)
         return True
     
-    def stop(self) -> None:
+    async def manage_request(self, sreader, swriter) -> None:
+        request : dict = []
+        while True:
+            try:
+                res = await asyncio.wait_for(sreader.readline(), SERVERD.TIMEOUT)
+                res = res.decode()
+            except:
+                return
+            if not res or not len(res) or res == '\r\n':
+                break
+            request.append(res)
+        payload = ""
+        for line in request:
+            if "GET " in line[0:4]:
+                if "/?" in line:
+                    # /?{"command": "get_value"; "endpoint_id": 0; "attributes": "[\"Temp\"]"}
+                    #javascript changes " to %22
+                    payload = line.split(" ")[1].split("?")[1].replace('%22', '"').replace('""', '\\"')
+                    #payload already string
+                elif len(line.split(" ")[1].split("/")[1]):
+                    # /style.css
+                    payload = json.dumps({"command": "html", \
+                                          "endpoint_id": None, \
+                                          "attributes": line.split(" ")[1].split("/")[1]})
+                else:
+                    # /
+                    payload = json.dumps({"command"    : "html", \
+                                          "endpoint_id": None, \
+                                          "attributes" : "index.html"})
+        if self.handle_message is not None and len(payload):
+            response = self.handle_message(payload)
+            try:
+                swriter.write('HTTP/1.0 200 OK\r\nContent-type:' + response["type"] + '\r\n\r\n')
+                swriter.write(response["content"])
+                await swriter.drain()
+            except:
+                pass
+        await sreader.wait_closed()
+
+    async def stop(self) -> None:
         self.run = False
+        try:
+            self.server.close()
+            await self.server.wait_closed()
+        except:
+            pass
         return None
     
-    def _connect_wifi(self):
-        with open('wifi_configs', 'r') as config_file:
-            config_file_content = config_file.read()
-        configs = json.loads(config_file_content)
-        while self.run:
-            self.wlan.scan()
-            self.wlan.connect(configs["SSID"], configs["password"])
-            if self.wlan.status() < 0 or self.wlan.status() >= 3:
-                if self.wlan.status() != 3:
-                    #network connection failed
-                    #try again
-                    time.sleep(NETWORKD.LONG_WAIT_TIME)
-                else:
-                    #connected
-                    break
+    def network_status(self, status) -> None:
+        self._network_status = status
 
-    def _network_is_connected(self) -> bool:
-        if self.wlan.status() < 0 or self.wlan.status() >= 3:
-            if self.wlan.status() != 3:
-                #network connection failed
-                #try again
-                return False
-            else:
-                #connected
-                try:
-                    localIP = self.wlan.ifconfig()[0]
-                    int(localIP.split(".")[-1])
-                    return True
-                except:
-                    return False
-        return False
-
-    def _serve_forever(self) -> bool:
-        #how does this work when network briefly disconnects?
-        _socket = socket.socket()
-        _socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        _socket.bind(socket.getaddrinfo(self.wlan.ifconfig()[0], 80)[0][-1])
-        _socket.listen(1)
-        while self.run:
-            connection, _ = _socket.accept()
-            request_file = connection.makefile('rwb', 0)
-            request = []
-            while self.run:
-                line = request_file.readline().decode()
-                request.append(line)
-                if not line or not len(line) or line == '\r\n':
-                    break
-            response = self.handle_message(request)
-            connection.send('HTTP/1.0 200 OK\r\nContent-type: ' + response["type"] + '\r\n\r\n')
-            connection.send(response["content"])
-            connection.close()
-
-    def infinite_loop(self):
-        self._serve_forever()
+    async def infinite_loop(self) -> None:
+        asyncio.create_task(self.start())

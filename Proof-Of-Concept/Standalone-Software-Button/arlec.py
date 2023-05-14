@@ -1,46 +1,25 @@
 import json
 from rf433 import RF433
+import uasyncio as asyncio
 from custom_extensible_class import CUSTOM_EXTENSIBLE_CLASS
 
 class ARLEC(CUSTOM_EXTENSIBLE_CLASS, RF433):
     def __init__(self, endpoint_id: int):
         CUSTOM_EXTENSIBLE_CLASS.__init__(self, endpoint_id)
         RF433.__init__(self)
+        self.run = True
         self.description = "RF433 MHz remote control for Arlec power socket"
         self.endpoint_id = endpoint_id
         with open("RF433_signals", 'r') as raw_signals:
             self.signals = json.loads(raw_signals.read())
         self.attributes = {"Power": ["Off", "On"]}
         self.state = {"Power": "Off"}
-    
-    def _validate(self, attributes: dict[str, str] | list[str]) -> bool:
-        if len(attributes) in [0]:
-            pass
-        elif len(attributes) in [1]:
-            pass
-        else:
-            raise Exception("Incorrect number of attributes")
-
-        for attribute in list(attributes):
-            found_it = False
-            for _attribute in list(self.attributes):
-                if _attribute == attribute:
-                    found_it = True
-                    break
-            if not found_it:
-                raise Exception("Attribute does not exist")
-        
-        if isinstance(attributes, dict):
-            for attribute in list(attributes):
-                if attributes[attribute] not in self.attributes[attribute]:
-                    raise Exception("Incorrect attribute value")                
-        return True
 
     def get_description(self) -> str:
         return self.description
     
-    def get_html(self, file_type) -> str:
-        if "html" in file_type:
+    def get_html(self, file_type: str) -> str:
+        if ".html" in file_type:
             with open('arlec.html', 'r') as html_file:
                 html = html_file.read()
             return html        
@@ -59,15 +38,19 @@ class ARLEC(CUSTOM_EXTENSIBLE_CLASS, RF433):
     def get_attributes(self) -> dict[str, list[str]]:
         return self.attributes
 
-    def set_value(self, attributes: dict[str, str | float]) -> bool | None:
-        self._validate(attributes)
+    def set_value(self, values: dict[str, str]) -> bool | None:
         self.state["Power"] = attributes["Power"]
         self.broadcast(self.signals["Power"][self.state["Power"]])
         return self.state
 
-    def get_value(self, attributes: list[str]) -> dict[str, str | float] | None:
-        self._validate(attributes)
+    def get_value(self, values: list[str]) -> dict[str, str | float] | None:
         return self.state
+    
+    def stop(self):
+        self.run = False
+    
+    async def infinite_loop(self):
+        return
 
 if __name__ == "__main__":
     import time
