@@ -134,7 +134,6 @@ class TEMP_CONTROL(CUSTOM_EXTENSIBLE_CLASS):
                 #if Fan is in Stand-by switch to ON
                 self.state["Fan"] = self.attributes["Fan"][2] #On
                 self.heater_state["Fan"] = self.attributes["Fan"][2] #On
-            self.heater.set_value(self.heater_state)
         elif self.state["Room_temp"] >= self.state["Target_temp"] + self.state["Control_band"]:
             self.state["Heater"] = self.attributes["Heater"][0] #Stand-by
             self.heater_state["HeatLevel"] = 4 #Stand-by
@@ -142,9 +141,9 @@ class TEMP_CONTROL(CUSTOM_EXTENSIBLE_CLASS):
                 #if Fan is in ON switch to Stand-by
                 self.state["Fan"] = self.attributes["Fan"][1] #Stand-by
                 self.heater_state["Fan"] = self.attributes["Fan"][0] #Off
-            self.heater.set_value(self.heater_state)
         else:
             pass
+        self.heater.set_value(self.heater_state)
 
     async def infinite_loop(self):
         while self.run:
