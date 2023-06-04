@@ -51,7 +51,8 @@ class SERVERD():
                 swriter.write(response["content"])
                 await swriter.drain()
             except:
-                pass
+                await sreader.close()
+                return
         await sreader.wait_closed()
 
     async def stop(self) -> None:
