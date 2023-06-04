@@ -84,7 +84,7 @@ The node will make use of:
 
 `connection.connect(socket.getaddrinfo(COORDINATOR_IP, COORDINATOR_PORT, 0, socket.SOCK_STREAM)[0][-1])`
 
-`ssl_connection = ssl.wrap_socket(connection, server_side = False, key = node_private_key_data, cert = node_public_certificate_data, cadata = CA_public_certificate_data, cert_reqs = ssl.CERT_REQUIRED, server_hostname = NODED.SERVER_SNI_HOSTNAME, do_handshake = True)`
+`ssl_connection = ssl.wrap_socket(connection, server_side = False, key = node_private_key_data, cert = node_public_certificate_data, cadata = CA_public_certificate_data, cert_reqs = ssl.CERT_REQUIRED, server_hostname = SERVER_SNI_HOSTNAME, do_handshake = True)`
 
 `stream_reader = asyncio.StreamReader(ssl_connection)`
 
