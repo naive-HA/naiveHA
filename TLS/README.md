@@ -72,17 +72,14 @@ The node will make use of:
 `NODE_PUBLIC_CERTIFICATE = 'signed_node.public.der'`
 
 `with open(NODE_PUBLIC_CERTIFICATE, 'rb') as node_public_certificate:`
-
 	`node_public_certificate_data = node_public_certificate.read()`
-    
+
 `with open(NODE_PRIVATE_KEY, 'rb') as node_private_key:`
-
 	`node_private_key_data = node_private_key.read()`
-    
-`with open(CA_PUBLIC_CERTIFICATE, 'rb') as CA_public_certificate:`
 
+`with open(CA_PUBLIC_CERTIFICATE, 'rb') as CA_public_certificate:`
 	`CA_public_certificate_data = CA_public_certificate.read()`
-    
+
 `connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)`
 
 `connection.connect(socket.getaddrinfo(COORDINATOR_IP, COORDINATOR_PORT, 0, socket.SOCK_STREAM)[0][-1])`
