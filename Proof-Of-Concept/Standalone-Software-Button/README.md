@@ -7,6 +7,7 @@ First, a commercially available power outlet is controlled remotely by mimicking
 ![arlec power outlet](https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Standalone-Software-Button/IMG_20230319_194943_204.jpg)
 
 The RF signals are transmitted by a cheap breakout module:
+
 ![RF module](https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Standalone-Software-Button/IMG_20230409_173019_605.jpg)
 
 The graphical interface is straightforward: it features an ON/OFF button
@@ -20,6 +21,7 @@ The workflow is demonstrated in the below video
 
 # Controlling a heater panel
 A second demonstration shows a more complex case then the previous one which considered toggling two states: ON/OFF. In the current case, a commercially available heater panel is controlled via a cheap infrared transmitting module mimicking the IR remote control. For advance control, the setup includes also an AHT20 temperature sensor
+
 ![IR module](https://raw.githubusercontent.com/naive-HA/naiveHA/main/Proof-Of-Concept/Standalone-Software-Button/IMG_20230409_173001_261.jpg)
 
 In the current case, the graphical interface is a tad more complex and features controls for heat level, fan and target temperature
